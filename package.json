@@ -4,8 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "web": "nodemon --exec node src/index.js",
-    "build": "webpack"
+    "web": "nodemon --exec node src/index.js"
   },
   "author": "",
   "type": "module",
