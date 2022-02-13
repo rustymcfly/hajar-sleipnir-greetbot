@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "web": "nodemon --exec node src/index.js"
+    "start": "nodemon --exec node src/index.js"
   },
   "author": "",
   "type": "module",
