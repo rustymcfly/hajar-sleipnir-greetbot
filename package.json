@@ -2,16 +2,33 @@
   "name": "@hajar-sleipnier/greetbot",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/main.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "web": "node src/index.js",
+    "build": "webpack"
   },
   "author": "",
+  "type": "module",
   "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^0.3.0",
     "discord-api-types": "^0.27.0",
-    "discord.js": "^13.6.0",
-    "webpack": "^5.68.0"
+    "discord.js": "^13.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7",
+    "@babel/plugin-proposal-class-properties": "^7",
+    "@babel/plugin-proposal-export-default-from": "^7",
+    "@babel/plugin-transform-modules-commonjs": "^7",
+    "@babel/plugin-transform-runtime": "^7",
+    "@babel/preset-env": "^7",
+    "@babel/runtime": "^7",
+    "babel-loader": "^8.2.2",
+    "core-js": "^3",
+    "terser-webpack-plugin": "^5.3.0",
+    "vue-template-compiler": "^2.6.12",
+    "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.3"
   }
 }
