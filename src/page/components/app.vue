@@ -3,15 +3,14 @@
         <header>
             <nav class="navbar navbar-dark bg-dark">
                 <div class="container">
-                    <router-link class="navbar-brand" to="/">Harja Sleipnir</router-link>
+                    <router-link class="navbar-brand" to="/">
+                        <img src="../assets/images/harja-sleipnir.webp" class="img-fluid" style="max-height: 50px"/>
+                        Harja Sleipnir</router-link>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"/>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav" ref="navbar">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <router-link class="nav-link active" aria-current="page" to="/">Home</router-link>
-                            </li>
                             <li class="nav-item">
                                 <router-link class="nav-link" to="/about">About</router-link>
                             </li>
@@ -38,7 +37,7 @@
                 <div class="row">
                     <div class="col-3 py-3 border-end border-light">
                         <b>States</b><br/>
-                        Discord Bot <span class="badge rounded" :class="state.state ? 'bg-success' : 'bg-danger'">&nbsp;</span>
+                        Hermodur <span class="badge rounded" :class="state.state ? 'bg-success' : 'bg-danger'">&nbsp;</span>
                     </div>
                     <div class="col-3 py-3 border-end border-light">
                    </div>

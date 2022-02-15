@@ -1,13 +1,26 @@
+$primary: #ff0300;
 @import "~bootstrap";
 
-$primary: #ff0300;
-
 ::-webkit-scrollbar {
-  display:none
+  display: none
+}
+
+body, html, .page {
+  background: var(--bs-dark);
+}
+
+header {
+  @extend .border-light;
+  @extend .border-bottom
+}
+
+footer {
+  @extend .border-light;
+  @extend .border-top
 }
 
 .page {
-  background: $light;
-  color: $dark;
-  min-height: calc(100vh - 14.5rem)
+  @extend .text-light;
+  overflow: scroll;
+  height: calc(100vh - 16rem);
 }

@@ -89,7 +89,7 @@ module.exports = {
                 type: 'asset/source'
             },
             {
-                test: /\.(png|jpe?g|gif|eot|woff|ttf|woff[2]*|otf|mp3|wav)$/i,
+                test: /\.(png|jpe?g|gif|eot|woff|ttf|woff[2]*|otf|mp3|wav|webp)$/i,
                 type: 'asset'
             },
             {

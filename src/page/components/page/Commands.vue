@@ -1,6 +1,6 @@
 <template>
     <div class="container page">
-        <h1>Commands</h1>
+        <h1>Hermodur Commands</h1>
         <ul>
             <li>
                 !ping

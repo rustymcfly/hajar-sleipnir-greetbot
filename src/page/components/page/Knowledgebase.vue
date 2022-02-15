@@ -1,5 +1,4 @@
 <template>
-
     <div class="container page">
         <h1>Knowledgebase</h1>
     </div>
