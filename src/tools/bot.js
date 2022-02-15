@@ -1,11 +1,11 @@
 const Discord = require("discord.js");
 const getEvents = require("./events.js").getEvents;
-
+const knowledgebase = require('./knowledgebase');
 const prefix = "!";
 let state = 0;
 
 const client = new Discord.Client({intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES]});
-
+const Knowledgebase = new knowledgebase()
 const getState = () => {
     return client.application
 };
@@ -60,6 +60,11 @@ const createBot = async function (token) {
                     .setURL(event.link);
 
                 channel.send({embeds: [embed]});
+                break;
+            case 'knowledge':
+                const query ={}
+                query[args.shift()] = args.join(',');
+                channel.send(JSON.stringify(Knowledgebase.query(query)));
                 break;
             case 'commands':
                 channel.send({

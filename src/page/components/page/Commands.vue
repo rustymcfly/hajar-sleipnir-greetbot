@@ -9,10 +9,13 @@
                 !termine
             </li>
             <li>
-                !detail
+                !detail [event-id]
             </li>
             <li>
-                !sum
+                !sum ...[args]
+            </li>
+            <li>
+                !knowledge [typ] ...[tags]
             </li>
         </ul>
     </div>

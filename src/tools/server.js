@@ -2,17 +2,25 @@ const http = require('http')
 const fs = require('fs')
 const path = require('path')
 const state = require('./bot.js').getState
+const url = require('url');
+const Knowledgebase = require('./knowledgebase');
 
 module.exports = {
-    createServer: function (port, folder = '../../dist') {
+    createServer: function (port, folder) {
+        const knowledgebase = new Knowledgebase();
         http.createServer(function (request, response) {
-            if (request.url === '/state') {
+            const URL = url.parse(request.url, true)
+            if (URL.pathname === '/state') {
                 response.writeHead(200, {'Content-Type': 'application/json'});
                 response.writeHead(200, {'Access-Control-Allow-Origin': '*'});
                 response.end(JSON.stringify({state: state()}), 'utf-8');
                 return
             }
-
+            if (URL.pathname === '/query') {
+                const result = knowledgebase.query(URL.query);
+                response.end(JSON.stringify(result), 'utf-8');
+                return
+            }
             let filePath = folder + request.url;
             if (filePath === folder + '/')
                 filePath = folder + '/index.html';
