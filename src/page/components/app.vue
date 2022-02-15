@@ -64,7 +64,8 @@
             }
         },
         async created() {
-            this.state = await (await fetch(window.location.protocol + '//' + window.location.hostname + ':5000/state')).json()
+            // this.state = await (await fetch(window.location.protocol + '//' + window.location.hostname + ':5000/state')).json()
+            this.state = await (await fetch('/state')).json()
         },
         mounted() {
 
