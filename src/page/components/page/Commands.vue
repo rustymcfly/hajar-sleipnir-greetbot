@@ -12,10 +12,24 @@
                 !detail [event-id]
             </li>
             <li>
-                !sum ...[args]
+                !knowledge [typ] ...[tags]
+                <br>
+                Beschränkt auf <b>Anwärter und darüber</b>
             </li>
             <li>
-                !knowledge [typ] ...[tags]
+                !knowledge-add [typ] [...{Feld: Wert}]
+                <br>
+                Beschränkt auf <b>Mitglied und darüber</b>
+            </li>
+            <li>
+                !knowledge-edit [typ] [id] [...{Feld: Wert}]
+                <br>
+                Beschränkt auf <b>Mitglied und darüber</b>
+            </li>
+            <li>
+                !knowledge-remove [typ] [id]
+                <br>
+                Beschränkt auf <b>Vorstand und darüber</b>
             </li>
         </ul>
     </div>
