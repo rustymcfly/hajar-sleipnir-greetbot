@@ -1,4 +1,4 @@
-const http = require('https')
+const http = require('http')
 const fs = require('fs')
 const path = require('path')
 const state = require('./bot.js').getState
@@ -16,7 +16,6 @@ module.exports = {
             if (filePath === folder + '/')
                 filePath = folder + '/index.html';
 
-            console.log(filePath, folder + '/')
             const extname = path.extname(filePath);
             let contentType = 'text/html';
             switch (extname) {
@@ -59,5 +58,6 @@ module.exports = {
             });
 
         }).listen(port);
+        console.log('server is listening on port ', port)
     }
 }
