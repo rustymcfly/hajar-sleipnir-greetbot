@@ -4,12 +4,15 @@
         <ul>
             <li>
                 !ping
+                Beschränkt auf <b>Jeder</b>
             </li>
             <li>
                 !termine
+                Beschränkt auf <b>Jeder</b>
             </li>
             <li>
                 !detail [event-id]
+                Beschränkt auf <b>Jeder</b>
             </li>
             <li>
                 !knowledge [typ] ...[tags]
