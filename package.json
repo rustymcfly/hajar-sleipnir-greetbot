@@ -1,13 +1,14 @@
 {
   "name": "@hajar-sleipnier/greetbot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Greeter Bot für den Hajar Sleipnir discord server",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon --exec node src/index.js"
+    "start": "nodemon --exec node src/index.js",
+    "build": "webpack --config webpack.config.js"
   },
+  "repository": "https://github.com/rustymcfly/hajar-sleipnir-greetbot.git ",
   "author": "",
-  "type": "module",
   "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^0.3.0",
@@ -15,8 +16,10 @@
     "discord.js": "^13.6.0",
     "dom-parser": "^0.1.6",
     "jsdom": "^19.0.0",
-    "node-fetch": "^3.2.0",
-    "nodemon": "^2.0.15"
+    "node-fetch": "^2",
+    "nodemon": "^2.0.15",
+    "vue": "^3.2.31",
+    "webpack-mild-compile": "^3.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7",
@@ -28,7 +31,11 @@
     "@babel/runtime": "^7",
     "babel-loader": "^8.2.2",
     "core-js": "^3",
+    "html-webpack-plugin": "latest",
+    "ip": "latest",
+    "mini-css-extract-plugin": "^2.5.3",
     "terser-webpack-plugin": "^5.3.0",
+    "vue-loader": "^17.0.0",
     "vue-template-compiler": "^2.6.12",
     "webpack": "^5.67.0",
     "webpack-cli": "^4.9.2",
