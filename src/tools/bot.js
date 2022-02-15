@@ -1,5 +1,5 @@
-const Discord = require( "discord.js");
-const getEvents =  require("./events.js").getEvents;
+const Discord = require("discord.js");
+const getEvents = require("./events.js").getEvents;
 
 const prefix = "!";
 let state = 0;
@@ -8,9 +8,9 @@ const client = new Discord.Client({intents: [Discord.Intents.FLAGS.GUILDS, Disco
 
 const getState = () => {
     return client.application
-}
+};
 const createBot = async function (token) {
-    const events = getEvents();
+    const events = await getEvents();
     const getChannel = (id) => {
         return client.channels.cache.get(id)
     };
@@ -60,11 +60,15 @@ const createBot = async function (token) {
                     .setURL(event.link);
 
                 channel.send({embeds: [embed]});
+                break;
             case 'commands':
-                channel.send({embeds: [ new Discord.MessageEmbed()
+                channel.send({
+                    embeds: [new Discord.MessageEmbed()
                         .setColor('#0099ff')
                         .setTitle('Commands')
-                        .setURL('https://hajar-sleipnir.herokuapp.com/#/commands')]});
+                        .setURL('https://hajar-sleipnir.herokuapp.com/#/commands')]
+                });
+                break;
         }
 
     });
