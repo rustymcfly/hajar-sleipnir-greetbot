@@ -65,7 +65,9 @@ const createBot = async function (token) {
                 channel.send({
                     embeds: [new Discord.MessageEmbed()
                         .setColor('#0099ff')
-                        .setTitle('Commands')
+                        .setImage('https://upload.wikimedia.org/wikipedia/commons/b/bd/Hermodr.jpg')
+                        .setTitle('Hermodur Commands')
+                        .setDescription('Was kann er denn nun alles?')
                         .setURL('https://harja-sleipnir.herokuapp.com/#/commands')]
                 });
                 break;
