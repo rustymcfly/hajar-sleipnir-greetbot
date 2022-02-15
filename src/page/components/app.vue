@@ -3,7 +3,7 @@
         <header>
             <nav class="navbar navbar-dark bg-dark">
                 <div class="container">
-                    <router-link class="navbar-brand" to="/">Hajar Sleipnir</router-link>
+                    <router-link class="navbar-brand" to="/">Harja Sleipnir</router-link>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"/>
                     </button>

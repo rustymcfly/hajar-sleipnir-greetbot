@@ -66,7 +66,7 @@ const createBot = async function (token) {
                     embeds: [new Discord.MessageEmbed()
                         .setColor('#0099ff')
                         .setTitle('Commands')
-                        .setURL('https://hajar-sleipnir.herokuapp.com/#/commands')]
+                        .setURL('https://harja-sleipnir.herokuapp.com/#/commands')]
                 });
                 break;
         }
