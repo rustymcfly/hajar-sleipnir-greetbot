@@ -66,11 +66,20 @@ const createBot = async function (token) {
                 query[args.shift()] = args.join(',');
                 channel.send(JSON.stringify(Knowledgebase.query(query)));
                 break;
+            case 'knowledge-add':
+                channel.send('not implemented');
+                break;
+            case 'knowledge-remove':
+                channel.send('not implemented');
+                break;
+            case 'knowledge-edit':
+                channel.send('not implemented');
+                break;
             case 'commands':
                 channel.send({
                     embeds: [new Discord.MessageEmbed()
                         .setColor('#0099ff')
-                        .setImage('https://upload.wikimedia.org/wikipedia/commons/b/bd/Hermodr.jpg')
+                        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/bd/Hermodr.jpg')
                         .setTitle('Hermodur Commands')
                         .setDescription('Was kann er denn nun alles?')
                         .setURL('https://harja-sleipnir.herokuapp.com/#/commands')]

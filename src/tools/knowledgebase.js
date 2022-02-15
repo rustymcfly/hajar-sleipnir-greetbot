@@ -13,7 +13,6 @@ class Knowledgebase {
      * @param {Object} query
      */
     query (query) {
-        console.log(query)
         return query
     }
 }
