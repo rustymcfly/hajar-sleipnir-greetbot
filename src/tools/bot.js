@@ -60,6 +60,11 @@ const createBot = async function (token) {
                     .setURL(event.link);
 
                 channel.send({embeds: [embed]});
+            case 'commands':
+                channel.send({embeds: [ new Discord.MessageEmbed()
+                        .setColor('#0099ff')
+                        .setTitle('Commands')
+                        .setURL('https://hajar-sleipnir.herokuapp.com/#/commands')]});
         }
 
     });

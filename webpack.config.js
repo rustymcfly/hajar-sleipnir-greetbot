@@ -1,14 +1,14 @@
-const { DefinePlugin } = require('webpack');
+const {DefinePlugin} = require('webpack');
 const path = require('path');
 const fs = require('fs');
 const ip = require('ip');
-const { VueLoaderPlugin } = require('vue-loader');
+const {VueLoaderPlugin} = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MildCompilePlugin = require('webpack-mild-compile').Plugin;
 module.exports = {
-    mode: 'production',
-    entry: path.resolve('src/page/index.js'),
+    mode: 'development',
+    entry:[ path.resolve('src/page/index.js'),  path.resolve('src/page/assets/style.scss')],
     output: {
         publicPath: '',
         path: path.resolve('dist'),
@@ -55,7 +55,7 @@ module.exports = {
                 test: /\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    { loader: 'css-loader' },
+                    {loader: 'css-loader'},
                     {
                         loader: 'sass-loader',
                         options: {
@@ -111,6 +111,7 @@ module.exports = {
         extensions: ['.js', '.vue']
     },
     stats: {
+        warnings: false,
         children: false
     }
 };

@@ -8,6 +8,7 @@ module.exports = {
         http.createServer(function (request, response) {
             if (request.url === '/state') {
                 response.writeHead(200, {'Content-Type': 'application/json'});
+                response.writeHead(200, {'Access-Control-Allow-Origin': '*'});
                 response.end(JSON.stringify({state: state()}), 'utf-8');
                 return
             }

@@ -1,0 +1,13 @@
+@import "~bootstrap";
+
+$primary: #ff0300;
+
+::-webkit-scrollbar {
+  display:none
+}
+
+.page {
+  background: $light;
+  color: $dark;
+  min-height: calc(100vh - 14.5rem)
+}
