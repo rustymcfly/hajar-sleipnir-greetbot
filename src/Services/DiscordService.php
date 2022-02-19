@@ -45,9 +45,8 @@ class DiscordService
     public function createCommand($name, $type, $description, $options): ResponseInterface
     {
         $json = [
-            "name" => "blep",
-            "type" => 1,
-            "description" => "Send a random adorable animal photo",
+            "name" => "testcommand",
+"description" => "asdf",
             "options" => [
                 [
                     "name" => "animal",
@@ -77,18 +76,12 @@ class DiscordService
                 ]
             ]
         ];
-        $client = $this->client->withOptions(
-            ["headers" => [
-                "Authorization: Bot " . $this->bot_token,
-                "content-type: application/json"
-            ],
-                'json' => $json
-            ]);
-        $request = $client->request(
+        return $this->client->request(
             'POST',
-//            'https://discord.com/api/v8/applications/' . $this->application_id . '/commands'
-            'https://hermodur.martin-flogaus.de/api/log'
+            'https://discordapp.com/api/v8/applications/' . $this->application_id . '/commands',
+            [
+                'json' => $json
+            ]
         );
-        return $request;
     }
 }

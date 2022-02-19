@@ -18,6 +18,8 @@ framework:
         log: true
     http_client:
         default_options:
+            headers:
+                Authorization: 'Bot %env(DISCORD_BOT_TOKEN)%'
 when@test:
     framework:
         test: true
