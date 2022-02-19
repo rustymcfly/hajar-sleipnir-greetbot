@@ -1,13 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>hello world!</h1>
+    <h3>The Hermodur Bot</h3>
+    <p>TODO's</p>
+    <pre>
+        Main:
+        - implement hwiOauth (login with discord) for users of associated Instance Entities
+        - create knowledge entity
+        - add legal info
+        - add privacy info
+        - add permissions info
+        DiscordService:
+        - create Responses, Embeds, Modals as Classes
+        - interactions create a typed response
+        CreateCommand:
+        - create default commands
+        - create Command Entity and assign it to the instance entity of the user, if he's admin
+        - create Fronted Form for creating commands
+        Bot-Connection:
+        - create registered Instance Entity
+        Security:
+        - create user entity
+        - implement Symfony-Firewall (authenticated Users can see Instance Commands, Roles and Knowledgebase)
+        Gateway
+        - rebuild nodejs app to work with the new symfony architecture and deploy it to heroku
+
+        Future features
+        - remove the nodejs app and build the webhook implementation of wished discord feature
+          https://support.discord.com/hc/en-us/community/posts/4421671598487-Outgoing-Webhook-for-Gateway-Events
+</pre>
+
+    <input class="form-control" onClick="this.select();"
+           value="https://discord.com/api/oauth2/authorize?client_id=942475328327147660&permissions=475600972823&redirect_uri=https%3A%2F%2Fhermodur.martin-flogaus.de%2Fapi%2FoAuth&response_type=code&scope=identify%20email%20bot%20messages.read%20connections"
+           readonly/>
+
+    Add the Bot [copy link]
+
     <div style="display: none">
-        <a data-href="https://discord.com/api/oauth2/authorize?client_id=942475328327147660&permissions=475600972823&redirect_uri=https%3A%2F%2Fhermodur.martin-flogaus.de%2Fapi%2FoAuth&response_type=code&scope=identify%20email%20bot%20messages.read%20connections">
-            Add Bot
-        </a>
         <a data-href="https://hermodur.martin-flogaus.de/api/oAuth?code=OW77J4kjCGLJDpXDJUYb0olal6F32h&guild_id=942475022629482577&permissions=475600972823">
-            oauth callback
+            add bot callback
         </a>
     </div>
 {% endblock %}

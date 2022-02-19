@@ -26,7 +26,7 @@ class ApiController extends AbstractController
 
         if ($authenticated) {
             $content = json_decode($request->getContent());
-            // TODO: Create Responses, Embeds, Modals as Entities
+            // TODO: Create Responses, Embeds, Modals as Classes
             return match ($content->type) {
                 InteractionType::APPLICATION_COMMAND => new JsonResponse(
                     [

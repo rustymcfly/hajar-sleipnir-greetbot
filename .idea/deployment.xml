@@ -5,8 +5,11 @@
       <paths name="ftp.martin-flogaus.de">
         <serverdata>
           <mappings>
-            <mapping deploy="/hermodur" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/.env.local" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
