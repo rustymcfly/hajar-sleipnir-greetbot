@@ -1,1 +1,0 @@
-# hajar-sleipnir-greetbot

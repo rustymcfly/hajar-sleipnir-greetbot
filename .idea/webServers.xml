@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a21ced92-b1ef-4e3b-8760-079ac5d341be" name="ftp.martin-flogaus.de" url="http://hermodur.martin-flogaus.de">
+        <fileTransfer host="ftp.martin-flogaus.de" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

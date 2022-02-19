@@ -1,117 +1,75 @@
-const {DefinePlugin} = require('webpack');
-const path = require('path');
-const fs = require('fs');
-const ip = require('ip');
-const {VueLoaderPlugin} = require('vue-loader');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MildCompilePlugin = require('webpack-mild-compile').Plugin;
-module.exports = {
-    mode: 'development',
-    entry:[ path.resolve('src/page/index.js'),  path.resolve('src/page/assets/style.scss')],
-    output: {
-        publicPath: '',
-        path: path.resolve('dist'),
-        filename: 'assets/js/index.js',
-        assetModuleFilename: (path) => {
-            return path.filename.replace('src/', '');
-        }
-    },
-    plugins: [
-        new VueLoaderPlugin(),
-        new MiniCssExtractPlugin(),
-        new HtmlWebpackPlugin({
-            inject: true,
-            template: './src/page/index.html',
-            filename: 'index.html'
-        }),
-        new DefinePlugin({
-            DEV_SERVER_IP: JSON.stringify(ip.address())
-        }),
-        new MildCompilePlugin()
-    ],
-    optimization: {
-        minimize: false
-    },
-    module: {
-        rules: [
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-            },
-            {
-                test: /^(?=.*\.css)(?!.*ignore).*$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    {loader: 'css-loader'},
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    }
+const Encore = require('@symfony/webpack-encore');
 
-                ]
-            },
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                options: {
-                    presets: [
-                        ['@babel/preset-env', {
-                            modules: 'amd',
-                            useBuiltIns: 'entry',
-                            corejs: 3
-                        }]
-                    ],
-                    plugins: [
-                        '@babel/plugin-transform-runtime',
-                        "@babel/plugin-transform-modules-commonjs",
-                        '@babel/plugin-proposal-export-default-from',
-                        '@babel/plugin-proposal-class-properties'
-                    ]
-                }
-            },
-            {
-                test: /\.(svg|md)$/i,
-                type: 'asset/source'
-            },
-            {
-                test: /\.(png|jpe?g|gif|eot|woff|ttf|woff[2]*|otf|mp3|wav|webp)$/i,
-                type: 'asset'
-            },
-            {
-                test: /\.(ts)$/i,
-                loader: 'ts-loader'
-            },
-            {
-                test: /\.(graphql|gql)$/,
-                exclude: /node_modules/,
-                type: 'asset/source'
-            }
-        ]
-    },
-    resolve: {
-        alias: {
-            '@': path.resolve('./src')
-        },
-        modules: ['src', 'node_modules'],
-        extensions: ['.js', '.vue']
-    },
-    stats: {
-        warnings: false,
-        children: false
-    }
-};
+// Manually configure the runtime environment if not already configured yet by the "encore" command.
+// It's useful when you use tools that rely on webpack.config.js file.
+if (!Encore.isRuntimeEnvironmentConfigured()) {
+    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
+}
+
+Encore
+    // directory where compiled assets will be stored
+    .setOutputPath('public/build/')
+    // public path used by the web server to access the output path
+    .setPublicPath('/public/build')
+    // only needed for CDN's or sub-directory deploy
+    //.setManifestKeyPrefix('build/')
+
+    /*
+     * ENTRY CONFIG
+     *
+     * Each entry will result in one JavaScript file (e.g. app.js)
+     * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
+     */
+    .addEntry('app', './assets/app.js')
+
+    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
+    .enableStimulusBridge('./assets/controllers.json')
+
+    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
+    .splitEntryChunks()
+
+    // will require an extra script tag for runtime.js
+    // but, you probably want this, unless you're building a single-page app
+    .enableSingleRuntimeChunk()
+
+    /*
+     * FEATURE CONFIG
+     *
+     * Enable & configure other features below. For a full
+     * list of features, see:
+     * https://symfony.com/doc/current/frontend.html#adding-more-features
+     */
+    .cleanupOutputBeforeBuild()
+    .enableBuildNotifications()
+    .enableSourceMaps(!Encore.isProduction())
+    // enables hashed filenames (e.g. app.abc123.css)
+    .enableVersioning(Encore.isProduction())
+
+    .configureBabel((config) => {
+        config.plugins.push('@babel/plugin-proposal-class-properties');
+    })
+
+    // enables @babel/preset-env polyfills
+    .configureBabelPresetEnv((config) => {
+        config.useBuiltIns = 'usage';
+        config.corejs = 3;
+    })
+
+    // enables Sass/SCSS support
+    //.enableSassLoader()
+
+    // uncomment if you use TypeScript
+    //.enableTypeScriptLoader()
+
+    // uncomment if you use React
+    //.enableReactPreset()
+
+    // uncomment to get integrity="..." attributes on your script & link tags
+    // requires WebpackEncoreBundle 1.4 or higher
+    //.enableIntegrityHashes(Encore.isProduction())
+
+    // uncomment if you're having problems with a jQuery plugin
+    //.autoProvidejQuery()
+;
+
+module.exports = Encore.getWebpackConfig();
