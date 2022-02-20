@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Entity\ApplicationCommand;
 use App\Entity\Discord\Guild;
-use Discord\InteractionResponseType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -42,7 +41,12 @@ class DiscordCommandService
 
     }
 
-    public function execute(ApplicationCommand $command) {
+    /**
+     * @param ApplicationCommand $command
+     * @return JsonResponse
+     */
+    public function execute(ApplicationCommand $command): JsonResponse
+    {
         return new JsonResponse(
             [
                 "type" => $command->getType(),

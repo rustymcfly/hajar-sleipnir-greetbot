@@ -3,17 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\ApplicationCommand;
-use App\Entity\Discord\Guild;
 use App\Services\DiscordService;
 use Discord\InteractionResponseType;
-use Discord\InteractionType;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 class ApiController extends AbstractController
 {
@@ -37,9 +36,9 @@ class ApiController extends AbstractController
 
         if ($authenticated) {
             $content = json_decode($request->getContent());
-            // TODO: Create Responses, Embeds, Modals as Classes
 
             $command = $this->entityManager->getRepository(ApplicationCommand::class)->findByNameAndGuildId($content->data->name, $content->guild_id);
+
             if ($command)
                 return $command->execute();
             else {
@@ -52,16 +51,15 @@ class ApiController extends AbstractController
 
     /**
      * @Route ("/api/createCommand")
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function createCommand(/*Request $request, DiscordService $discordService*/): Response
+    public function createCommand(Request $request, DiscordService $discordService): Response
     {
-
         // Todo: create default commands
         // Todo: create Command Entity and assign it to the guildId of user
         // Todo: create Fronted Form for creating commands
-//        $response = $discordService->createCommand("", "", "", []);
-//        return new Response($response->getContent(), $response->getStatusCode(), $response->getHeaders());
-        return new Response('not allowed', 401);
+        $response = $discordService->createCommand("", "", "", []);
+        return new Response($response->getContent(), $response->getStatusCode(), $response->getHeaders());
     }
 
 
