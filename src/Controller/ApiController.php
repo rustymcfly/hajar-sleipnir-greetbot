@@ -2,18 +2,29 @@
 
 namespace App\Controller;
 
+use App\Entity\ApplicationCommand;
+use App\Entity\Discord\Guild;
 use App\Services\DiscordService;
 use Discord\InteractionResponseType;
 use Discord\InteractionType;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class ApiController extends AbstractController
 {
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * @Route ("/api")
      */
@@ -27,58 +38,13 @@ class ApiController extends AbstractController
         if ($authenticated) {
             $content = json_decode($request->getContent());
             // TODO: Create Responses, Embeds, Modals as Classes
-            return match ($content->type) {
-                InteractionType::APPLICATION_COMMAND => new JsonResponse(
-                    [
-                        'type' => InteractionResponseType::CHANNEL_MESSAGE_WITH_SOURCE,
-                        "data" => [
-                            'content' => 'APPLICATION_COMMAND => ' . json_encode($content->data),
-                            "tts" => False,
-                            "embeds" => [],
-                            "allowed_mentions" => [
-                                "parse" => []
-                            ]
-                        ]
-                    ], 200),
-                InteractionType::MESSAGE_COMPONENT => new JsonResponse(
-                    [
-                        'type' => InteractionResponseType::CHANNEL_MESSAGE_WITH_SOURCE,
-                        "data" => [
-                            'content' => 'MESSAGE_COMPONENT',
-                            "tts" => False,
-                            "embeds" => [],
-                            "allowed_mentions" => [
-                                "parse" => []
-                            ]
-                        ]
-                    ], 200),
-                InteractionType::APPLICATION_COMMAND_AUTOCOMPLETE => new JsonResponse(
-                    [
-                        'type' => InteractionResponseType::CHANNEL_MESSAGE_WITH_SOURCE,
-                        "data" => [
-                            'content' => 'APPLICATION_COMMAND_AUTOCOMPLETE',
-                            "tts" => False,
-                            "embeds" => [],
-                            "allowed_mentions" => [
-                                "parse" => []
-                            ]
-                        ]
-                    ], 200),
-                InteractionType::MODAL_SUBMIT => new JsonResponse(
-                    [
-                        'type' => InteractionResponseType::CHANNEL_MESSAGE_WITH_SOURCE,
-                        "data" => [
-                            'content' => 'MODAL_SUBMIT',
-                            "tts" => False,
-                            "embeds" => [],
-                            "allowed_mentions" => [
-                                "parse" => []
-                            ]
-                        ]
-                    ], 200),
-                default => new JsonResponse(['type' => InteractionResponseType::PONG], 200),
-            };
 
+            $command = $this->entityManager->getRepository(ApplicationCommand::class)->findByNameAndGuildId($content->data->name, $content->guild_id);
+            if ($command)
+                return $command->execute();
+            else {
+                return new JsonResponse(['type' => InteractionResponseType::PONG], 200);
+            }
         } else {
             return new JsonResponse(["type" => "not verified"], 401);
         }
@@ -86,9 +52,8 @@ class ApiController extends AbstractController
 
     /**
      * @Route ("/api/createCommand")
-     * @throws TransportExceptionInterface
      */
-    public function createCommand(Request $request, DiscordService $discordService): Response
+    public function createCommand(/*Request $request, DiscordService $discordService*/): Response
     {
 
         // Todo: create default commands
@@ -103,8 +68,9 @@ class ApiController extends AbstractController
     /**
      * @Route ("/api/oAuth")
      * @param Request $request
+     * @return Response
      */
-    public function oAuth(Request $request)
+    public function oAuth(Request $request): Response
     {
         $oAuthCode = $request->get('code');
         $grantedPermissions = $request->get('permissions');
@@ -113,8 +79,9 @@ class ApiController extends AbstractController
         // TODO: create registered Instance Entity
         ob_start();
         echo '<h1>In Future, you get a user account to manage your Hermodur instance</h1>';
-        dump([$oAuthCode, $guildId,$grantedPermissions]);
+        dump([$oAuthCode, $guildId, $grantedPermissions]);
         $debug_dump = ob_get_clean();
         return new Response($debug_dump);
     }
+
 }

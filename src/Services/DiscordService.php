@@ -40,13 +40,18 @@ class DiscordService
     }
 
     /**
+     * @param string $name
+     * @param $type
+     * @param $description
+     * @param $options
+     * @return ResponseInterface
      * @throws TransportExceptionInterface
      */
     public function createCommand($name, $type, $description, $options): ResponseInterface
     {
         $json = [
-            "name" => "testcommand",
-"description" => "asdf",
+            "name" => $name,
+            "description" => $description,
             "options" => [
                 [
                     "name" => "animal",
