@@ -1,9 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h3>The Hermodur Bot</h3>
-    <p>TODO's</p>
-    <pre>
+    <div class="row">
+        {% block header %}
+
+        {% endblock %}
+
+
+        {% block sidebar %}
+
+        {% endblock %}
+        {% block main %}
+            <h3>The Hermodur Bot</h3>
+            <p>TODO's</p>
+            <pre>
         Main:
         - implement hwiOauth (login with discord) for users of associated Instance Entities
         - create knowledge entity
@@ -30,15 +40,17 @@
           https://support.discord.com/hc/en-us/community/posts/4421671598487-Outgoing-Webhook-for-Gateway-Events
 </pre>
 
-    <input class="form-control" onClick="this.select();"
-           value="https://discord.com/api/oauth2/authorize?client_id=942475328327147660&permissions=475600972823&redirect_uri=https%3A%2F%2Fhermodur.martin-flogaus.de%2Fapi%2FoAuth&response_type=code&scope=identify%20email%20bot%20messages.read%20connections"
-           readonly/>
+            <input class="form-control" onClick="this.select();"
+                   value="https://discord.com/api/oauth2/authorize?client_id=942475328327147660&permissions=475600972823&redirect_uri=https%3A%2F%2Fhermodur.martin-flogaus.de%2Fapi%2FoAuth&response_type=code&scope=identify%20email%20bot%20messages.read%20connections"
+                   readonly/>
 
-    Add the Bot [copy link]
+            Add the Bot [copy link]
 
-    <div style="display: none">
-        <a data-href="https://hermodur.martin-flogaus.de/api/oAuth?code=OW77J4kjCGLJDpXDJUYb0olal6F32h&guild_id=942475022629482577&permissions=475600972823">
-            add bot callback
-        </a>
+            <div style="display: none">
+                <a data-href="https://hermodur.martin-flogaus.de/api/oAuth?code=OW77J4kjCGLJDpXDJUYb0olal6F32h&guild_id=942475022629482577&permissions=475600972823">
+                    add bot callback
+                </a>
+            </div>
+        {% endblock %}
     </div>
 {% endblock %}

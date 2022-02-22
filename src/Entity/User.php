@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Entity\Discord\Guild;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -16,8 +16,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $id;
 
@@ -39,18 +38,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string")
      */
-    protected string $guild_member_id;
+    private string $oAuthToken;
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Discord\Guild", inversedBy="members")
      * @ORM\JoinTable(name="guilds_members")
      */
     protected ArrayCollection $guilds;
 
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="App\Entity\Discord\Guild", mappedBy="owner_id")
+     */
+    private ArrayCollection $owns;
 
 
 
-    public function __construct() {
-        $this->guilds = new \Doctrine\Common\Collections\ArrayCollection();
+    #[Pure] public function __construct() {
+        $this->owns = new ArrayCollection();
+        $this->guilds = new ArrayCollection();
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
     public function getId(): ?int
@@ -153,18 +167,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->guild_member_id = $guild_member_id;
     }
     /**
-     * @return Guild[]
+     * @return ArrayCollection
      */
-    public function getGuilds(): array
+    public function getGuilds(): ArrayCollection
     {
         return $this->guilds;
     }
 
     /**
-     * @param Guild[] $guilds
+     * @param ArrayCollection $guilds
      */
-    public function setGuilds(array $guilds): void
+    public function setGuilds(ArrayCollection $guilds): void
     {
         $this->guilds = $guilds;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOwns(): ArrayCollection
+    {
+        return $this->owns;
+    }
+
+    /**
+     * @param ArrayCollection $owns
+     */
+    public function setOwns(ArrayCollection $owns): void
+    {
+        $this->owns = $owns;
+    }
+
 }

@@ -22,20 +22,22 @@ class Command
     /**
      * @var Snowflake unique id of the command all
      */
-    private Snowflake $id;
+    private string $id;
     /**
      * @var int(1, 2, 3) one of application command type the type of command, defaults 1 if not set
      */
     private int $type = 1;
 
     /**
-     * @var Snowflake unique id of the parent application
+     * @see Snowflake
+     * @var string  unique id of the parent application
      */
-    private Snowflake $application_id;
+    private string $application_id;
     /**
-     * @var Snowflake guild id of the command, if not global
+     * @see Snowflake
+     * @var string  guild id of the command, if not global
      */
-    private Snowflake $guild_id;
+    private string $guild_id;
     /**
      * @var string 1-32 character name
      */
@@ -53,9 +55,10 @@ class Command
      */
     private bool $default_permission = true;
     /**
-     * @var Snowflake autoincrementing version identifier updated during substantial record changes
+     * @see Snowflake
+     * @var string  autoincrementing version identifier updated during substantial record changes
      */
-    private Snowflake $version;
+    private string $version;
 
     /**
      * @return Snowflake

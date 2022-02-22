@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+
+        {% block header %}
+            <div class="col-12">
+                <h1>
+                    {{ discord_guild.name }} authentifiziert!
+                </h1>
+
+                <p>
+                    Bitte vervollständige noch deine Accountdaten, damit du deine Hermodur Instanz verwalten kannst!
+                </p>
+            </div>
+        {% endblock %}
+        {% block sidebar %}
+            <div class="col-2 border rounded">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Guilds</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Members</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Rollen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Commands</a>
+                    </li>
+                </ul>
+            </div>
+        {% endblock %}
+        {% block main %}
+            <div class="col-10">
+                <h3>Deine Daten</h3>
+                {# TODO: Create User edit form #}
+                Form goes here
+            </div>
+        {% endblock %}

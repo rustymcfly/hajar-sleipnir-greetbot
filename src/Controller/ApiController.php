@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ApplicationCommand;
+use App\Entity\Discord\Guild;
 use App\Services\DiscordService;
 use Discord\InteractionResponseType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,7 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-
+/**
+ * @Route (path="/api", name="api")
+ */
 class ApiController extends AbstractController
 {
 
@@ -25,7 +28,7 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route ("/api")
+     * @Route (path="/", name="_interactions")
      */
     public function interactions(Request $request, DiscordService $discordService): JsonResponse
     {
@@ -50,7 +53,7 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route ("/api/createCommand")
+     * @Route (path="/createCommand", name="_createcommand")
      * @IsGranted("ROLE_ADMIN")
      */
     public function createCommand(Request $request, DiscordService $discordService): Response
@@ -64,7 +67,7 @@ class ApiController extends AbstractController
 
 
     /**
-     * @Route ("/api/oAuth")
+     * @Route (path="/oAuth", name="_oauth")
      * @param Request $request
      * @return Response
      */
@@ -73,13 +76,15 @@ class ApiController extends AbstractController
         $oAuthCode = $request->get('code');
         $grantedPermissions = $request->get('permissions');
         $guildId = $request->get('guild_id');
-
-        // TODO: create registered Instance Entity
-        ob_start();
-        echo '<h1>In Future, you get a user account to manage your Hermodur instance</h1>';
-        dump([$oAuthCode, $guildId, $grantedPermissions]);
-        $debug_dump = ob_get_clean();
-        return new Response($debug_dump);
+        $guild = $this->entityManager->getRepository(Guild::class)->findByGuildId($guildId);
+        if(!$guild) {
+            $guild = new Guild();
+            $guild->setGuildId($guildId);
+            $guild->setPermissions($grantedPermissions);
+            $this->entityManager->persist($guild);
+            $this->entityManager->flush();
+        }
+        return $this->redirectToRoute('account_edit', ["guild_id" => $guild->getGuildId(), "auth_code" => $oAuthCode]);
     }
 
 }

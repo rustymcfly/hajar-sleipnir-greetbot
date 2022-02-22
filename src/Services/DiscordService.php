@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entity\Discord\Guild;
 use Discord\Interaction;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +38,17 @@ class DiscordService
 
         $postData = $request->getContent();
         return Interaction::verifyKey($postData, $signature, $timestamp, $this->secret);
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function getGuild(Guild $guild): ResponseInterface
+    {
+        return $this->client->request(
+            'GET',
+            'https://discordapp.com/api/v8/guilds/' . $guild->getGuildId()
+        );
     }
 
     /**

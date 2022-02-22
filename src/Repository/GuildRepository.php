@@ -24,11 +24,17 @@ class GuildRepository extends ServiceEntityRepository
      */
     public function findByGuildId($value)
     {
-        return $this->createQueryBuilder('g')
+        $result = $this->createQueryBuilder('g')
             ->andWhere('g.guild_id = :val')
             ->setParameter('val', $value)
             ->setMaxResults(1)
             ->getQuery()
             ->getResult();
+
+        if(count($result)) {
+            return $result[0];
+        } else {
+            return null;
+        }
     }
 }

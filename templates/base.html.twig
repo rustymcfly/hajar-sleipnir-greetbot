@@ -19,11 +19,40 @@
 </head>
 <body>
 <div class="container">
-    {% block body %}{% endblock %}
+    {% block body %}
 
-    <pre class="mt-5">
-by Martin Flogaus => hello[at]martin-flogaus[dot]de
-</pre>
+        <div class="row">
+            {% block header %}
+
+            {% endblock %}
+
+
+            {% block sidebar %}
+
+            {% endblock %}
+            {% block main %}
+
+            {% endblock %}
+
+            {% block footer %}
+                <div class="col-12 border rounded">
+                    <div class="row">
+                        <div class="col-1">
+                            <img src="/public/build/hermodur.webp" class="img-fluid"/>
+
+                        </div>
+                        <div class="col-3"><small><b>&copy; 2022 Martin Flogaus</b></small></div>
+                        <div class="col-4"></div>
+                        <div class="col-4">
+                            <a href="https://discord.com/api/oauth2/authorize?client_id={{ discord_app_id }}&permissions={{ guild.permissions }}&redirect_uri={{ app.request.schemeAndHttpHost ~ path('api_oauth')|url_encode }}&response_type=code&scope=identify%20email%20bot%20messages.read%20connections">
+                                Add Hermodur
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+    {% endblock %}
 </div>
 
 </body>

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Discord\Guild;
 use App\Services\DiscordCommandService;
 use App\Repository\ApplicationCommandRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -42,10 +43,9 @@ class ApplicationCommand implements Interaction
     protected int $type;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Discord\Guild", inversedBy="commands")
-     * @ORM\JoinTable(name="guilds_commands")
+     * @ORM\ManyToOne (targetEntity="App\Entity\Discord\Guild", inversedBy="commands")
      */
-    protected ArrayCollection $guilds;
+    protected Guild $guild;
     /**
      * @var DiscordCommandService
      */
@@ -105,22 +105,6 @@ class ApplicationCommand implements Interaction
     public function execute(): JsonResponse
     {
         return $this->commandService->execute($this);
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getGuilds(): ArrayCollection
-    {
-        return $this->guilds;
-    }
-
-    /**
-     * @param ArrayCollection $guilds
-     */
-    public function setGuilds(ArrayCollection $guilds): void
-    {
-        $this->guilds = $guilds;
     }
 
     /**
@@ -203,6 +187,22 @@ class ApplicationCommand implements Interaction
     public function setContent(string $content): void
     {
         $this->content = $content;
+    }
+
+    /**
+     * @return Guild
+     */
+    public function getGuild(): Guild
+    {
+        return $this->guild;
+    }
+
+    /**
+     * @param Guild $guild
+     */
+    public function setGuild(Guild $guild): void
+    {
+        $this->guild = $guild;
     }
 
 }
